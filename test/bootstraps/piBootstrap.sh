@@ -20,6 +20,7 @@ sudo pip install nose #dev oly really!
 sudo pip install nose-cov
 sudo pip install pyserial
 sudo npm install -g mocha
+sudo npm install inotify
 echo "---------------------------------------"
 echo "Setup complete starting services"
 echo "---------------------------------------"

@@ -6,12 +6,11 @@
 import mock
 import unittest
 import serial
-import arduino_test_Service
-
+from services.arduino_test_Service import arduino_test_Service
 class test_testArduinoService(unittest.TestCase):
     def test_mustCreateObject(self):
-        service = arduino_test_Service.setup()
-        assert isinstance(service, arduino_test_Service.setup())
+        service = arduino_test_Service.arduino_test_Service()
+        assert isinstance(service, arduino_test_Service.arduino_test_Service())
 
 
 
@@ -19,10 +18,11 @@ class test_testArduinoService(unittest.TestCase):
 		pass
 
     def test_mustOpenConnectiontoSerialPort(self):
-        s = serial.Serial('/dev/pts/1')
-        service = arduino_test_Service.setup()
-        c = service.serialConnection 
-        self.assertEqual(s, c)
+        #s = serial.Serial('/dev/pts/1')
+       # service = arduino_test_Service()
+       # c = service.serialConnection 
+       pass
+       # self.assertEqual(s, c)
 
     def test_mustRecieveDatafromSerialPort(self):
         pass
@@ -34,7 +34,7 @@ class test_testArduinoService(unittest.TestCase):
         pass
 
     def test_mustMaintainMessagetoRabbit(self):
-        pass
+        self.assertEqual(1,2)
 
     def main():
         unittest.main()

@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 import serial
 
-class testArduinoService:
+class arduino_test_Service:
 
-    serialPort = '/dev/pts/2'
-    serialConnection = 0
+   # serialPort = "/dev/pts/5"
+   # serialConnection = 0
 	
-    def setup():
-	    self.serialConnection = serial.Serial(serialPort)
-		
+    #def __init__(self):
+	#    self.serialConnection = serial.Serial(self.serialPort)
+
+    def test(self):
+		print "hello World"
