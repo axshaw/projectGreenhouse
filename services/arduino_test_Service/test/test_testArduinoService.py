@@ -6,36 +6,29 @@
 import mock
 import unittest
 import serial
+import io
 from services.arduino_test_Service import arduino_test_Service
+import threading
+
+
+baudrate=115200
+timeout=3.0
+
 class test_testArduinoService(unittest.TestCase):
     def test_mustCreateObject(self):
         service = arduino_test_Service.arduino_test_Service()
-        assert isinstance(service, arduino_test_Service.arduino_test_Service())
+        assert isinstance(service, arduino_test_Service.arduino_test_Service)
 
-
-
-    def test_test(self):
-		pass
-
-    def test_mustOpenConnectiontoSerialPort(self):
-        #s = serial.Serial('/dev/pts/1')
-       # service = arduino_test_Service()
-       # c = service.serialConnection 
-       pass
-       # self.assertEqual(s, c)
 
     def test_mustRecieveDatafromSerialPort(self):
-        pass
-
-    def test_mustCreateConnectiontoRabbitMQ(self):
-        pass
-
-    def test_mustSendMessagetoRabbitMQ(self):
-        pass
-
-    def test_mustMaintainMessagetoRabbit(self):
-        self.assertEqual(1,2)
-
+        ser = serial.Serial('/dev/pts/1',baudrate=115200, timeout=30)
+        service = arduino_test_Service.arduino_test_Service()
+        hello = ser.readline()
+       # service.generateJSON()
+        assert isinstance(hello, str)
+        print hello
+        self.assertTrue(len(hello) > 4)
+ 
     def main():
         unittest.main()
 
