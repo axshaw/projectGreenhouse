@@ -21,6 +21,7 @@
         width: 40px;
 }
 </style>
+<h2>Current: </h2>
 <div id="chart_container">
         <div id="y_axis"></div>
         <div id="chart"></div>
@@ -71,8 +72,7 @@ function update(dataStream)	{
 		} );
 
 		highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
-			graph: graph,
-			legend: legend
+			graph: graph
 		} );
 
 		graphEnabled = true;
@@ -83,7 +83,8 @@ function update(dataStream)	{
 
 
 
-var connection = new WebSocket("ws://192.168.42.48:8784");  
+//var connection = new WebSocket("ws://192.168.42.48:8784");  
+var connection = new WebSocket("ws://localhost:8181");  
 connection.onopen = function(){  
     console.log('Socket has been opened!');  
 } 
