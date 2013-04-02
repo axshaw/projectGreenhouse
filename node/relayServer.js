@@ -55,19 +55,24 @@ dataSocket.on('message', function(message) { //when data recieved from sensor ne
   console.log(query.sql);
 
   //fetch amalgamated data for averages
-  connection.query( 'SELECT min(value) FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
+  connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
     // And done with the connection.
     responseArray['24hourMin'] = rows;
-    console.log(rows);
+    console.log('24min: '+rows);
   });
 
-
+connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
+    // And done with the connection.
+    responseArray['24hourMax'] = rows;
+    console.log('24max: '+rows);
+  });
   //format response
 
+  responseArray['sensorData'] = message;
 
   //if websocket connections exist send the data back to the clients
   if( typeof outgoing ==="object") {
-    outgoing.send(message);
+    outgoing.send(responseArray);
   }
 
 

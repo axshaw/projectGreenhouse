@@ -94,14 +94,16 @@
 			   console.log('Connection closed');
 			}
 			connection.onmessage = function(msg){  
-			 temp = msg.data;
+			 livedata = msg.data;
+			 temp = msg.data['sensorData'];
 			  var milliseconds = Math.round((new Date()).getTime() / 1000);
 			  var dataStream = {};
 			  	dataStream.x = milliseconds;
-			  	dataStream.y = parseFloat(msg.data);
+			  	dataStream.y = parseFloat(msg.data['sensorData']);
 			  	update(dataStream);
 			    document.getElementById('current').innerHTML = temp + ' C';
-			    
+			    document.getElementById('24min').innerHTML = livedata['24hourMin'] + ' C';
+			    document.getElementById('24max').innerHTML = livedata['24hourMax'] + ' C';
 			   
 			}  
 			// Log errors
@@ -115,8 +117,8 @@
     <h1>Project Greenhouse</h1>
     <div class="row">
       <div class="span2">Current<h2><div id="current"></div></h2></div>
-	  <div class="span1">24h Low</div>	
-      <div class="span1">24h High</div>
+	  <div class="span1">24h Low<h3><div id="24hourMin"></div></h3></div>	
+      <div class="span1">24h High<h3><div id="24hourMax"></div></h3></div>
 	  <div class="span1">7d High</div>	
       <div class="span1">7d Low</div>
 	  <div class="span1">28d High</div>
