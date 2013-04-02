@@ -85,7 +85,7 @@
 
 
 
-			var connection = new WebSocket("ws://relay.greenhouse:8784");  
+			var connection = new WebSocket("ws://relay.greenhouse:8181");  
 			//var connection = new WebSocket("ws://localhost:8181");  
 			connection.onopen = function(){  
 			    console.log('Socket has been opened!');  
@@ -94,12 +94,14 @@
 			   console.log('Connection closed');
 			}
 			connection.onmessage = function(msg){  
-			 livedata = msg.data;
-			 temp = msg.data['sensorData'];
+				console.log(JSON.stringify(msg.data));
+			 livedata = JSON.parse(msg.data);
+			 console.log('livedata: '+msg.data);
+			 temp = livedata['sensorData'];
 			  var milliseconds = Math.round((new Date()).getTime() / 1000);
 			  var dataStream = {};
 			  	dataStream.x = milliseconds;
-			  	dataStream.y = parseFloat(msg.data['sensorData']);
+			  	dataStream.y = parseFloat(livedata['sensorData']);
 			  	update(dataStream);
 			    document.getElementById('current').innerHTML = temp + ' C';
 			    document.getElementById('24min').innerHTML = livedata['24hourMin'] + ' C';
