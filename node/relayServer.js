@@ -57,14 +57,14 @@ dataSocket.on('message', function(message) { //when data recieved from sensor ne
   //fetch amalgamated data for averages
   connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
     // And done with the connection.
-    responseArray['24hourMin'] = rows;
-    console.log('24min: '+rows);
+    responseArray['24hourMin'] = rows['minTemp'];
+    console.log('24min: '+rows['minTemp']);
   });
 
 connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
     // And done with the connection.
     responseArray['24hourMax'] = rows['maxTemp'];
-    console.log('24max: '+rows['minTemp']);
+    console.log('24max: '+rows['maxTemp']);
   });
   //format response
 
