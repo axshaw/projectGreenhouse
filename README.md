@@ -8,7 +8,7 @@ This project is at very very early alpha stage. Most of the features are yet to 
 
 The following technology is required.
 
-Raspberry Pi
+Raspberry Pi,
 Ardunio
 
 
@@ -26,3 +26,6 @@ websockets to allow live reporting and data storage
 Client Scripts
 ==============
 The front end display using web based tools to display live reports
+
+
+builds run on http://about.travis-ci.org/

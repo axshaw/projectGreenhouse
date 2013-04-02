@@ -1,4 +1,6 @@
 
+//create a websocket server and send random temperature data at regular intervals
+
 var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({port: 8080});
 wss.on('connection', function(ws) {     

@@ -1,0 +1,4 @@
+SELECT
+    max(value),
+	timestamp
+FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY
