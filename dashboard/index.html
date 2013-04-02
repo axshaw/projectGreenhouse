@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="rickshaw-master/rickshaw.min.css">
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="rickshaw-master/vendor/d3.layout.min.js"></script>
+	<script src="rickshaw-master/rickshaw.min.js"></script>
+	<script src="rickshaw-master/src/js/Rickshaw.Fixtures.Time.js"></script>
+	<script src="rickshaw-master/src/js/Rickshaw.Graph.Axis.Time.js"></script>
+    <style>
+		#chart_container {
+		        position: relative;
+		        font-family: Arial, Helvetica, sans-serif;
+		}
+		#chart {
+		        position: relative;
+		        left: 40px;
+		}
+		#y_axis {
+		        position: absolute;
+		        top: 0;
+		        bottom: 0;
+		        width: 40px;
+		}
+	</style>
+	<script>
+
+			var data = [];
+
+			var graphEnabled=false;
+			var graph;
+			var x_axis;
+			var y_axis;
+			var hoverDetail;
+			var highlighter;
+			var temp;
+
+			function update(dataStream)	{
+				console.log(dataStream);
+				console.log(data);
+				data.push(dataStream);
+			   // data.shift();
+
+			   if(graphEnabled==false) {
+					 graph = new Rickshaw.Graph( {
+					        element: document.querySelector("#chart"),
+					        renderer: 'line',
+					        width: 580,
+					        min: -5,
+					        height: 250,
+					        series: [ {
+					                color: 'steelblue',
+					                data: data
+					        } ]
+					} );
+
+					 x_axis = new Rickshaw.Graph.Axis.Time( { 
+					 	graph: graph
+					 } );
+
+					 y_axis = new Rickshaw.Graph.Axis.Y( {
+					        graph: graph,
+					        orientation: 'left',
+					        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+					        element: document.getElementById('y_axis'),
+					} );
+
+					 hoverDetail = new Rickshaw.Graph.HoverDetail( {
+						graph: graph
+					} );
+
+					highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
+						graph: graph
+					} );
+
+					graphEnabled = true;
+				};
+
+				 graph.render();
+			};
+
+
+
+			var connection = new WebSocket("ws://192.168.42.150:8784");  
+			//var connection = new WebSocket("ws://localhost:8181");  
+			connection.onopen = function(){  
+			    console.log('Socket has been opened!');  
+			} 
+			connection.onclose = function(){
+			   console.log('Connection closed');
+			}
+			connection.onmessage = function(msg){  
+			 temp = msg.data;
+			  var milliseconds = (new Date).getTime();
+			  var dataStream = {};
+			  	dataStream.x = milliseconds;
+			  	dataStream.y = parseFloat(msg.data);
+			  	update(dataStream);
+			    document.getElementById('current').innerHTML = temp + ' C';
+			    
+			   
+			}  
+			// Log errors
+			connection.onerror = function (error) {
+			  console.log('WebSocket Error ' + error);
+			};
+
+			</script>
+  </head>
+  <body>
+    <h1>Project Greenhouse</h1>
+    <div class="row">
+      <div class="span2">Current<h2><div id="current"></div></h2></div>
+	  <div class="span1">24h Low</div>	
+      <div class="span1">24h High</div>
+	  <div class="span1">7d High</div>	
+      <div class="span1">7d Low</div>
+	  <div class="span1">28d High</div>
+	  <div class="span1">28d Low</div>
+	  <div class="span4">Graph
+	  	<div id="chart_container">
+        	<div id="y_axis"></div>
+        	<div id="chart"></div>
+		</div>
+
+			
+	  </div>
+
+	</div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
