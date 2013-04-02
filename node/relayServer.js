@@ -50,21 +50,21 @@ dataSocket.on('message', function(message) { //when data recieved from sensor ne
   //send database insert
   var post  = {sensorId: parseFloat('001'), value: parseFloat(message)};
   var query = connection.query('INSERT INTO sensorData SET ?', post, function(err, result) {
-    console.log(result + " " + err);
+    //console.log(result + " " + err);
   });
   console.log(query.sql);
 
   //fetch amalgamated data for averages
   connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
     // And done with the connection.
-    responseArray['24hourMin'] = rows['minTemp'];
-    console.log('24min: '+rows['minTemp']);
+    responseArray['24hourMin'] = rows[0].minTemp;
+    console.log('24min: '+rows[0].minTemp);
   });
 
 connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
     // And done with the connection.
-    responseArray['24hourMax'] = rows['maxTemp'];
-    console.log('24max: '+rows['maxTemp']);
+    responseArray['24hourMax'] = rows[0].maxTemp;
+    console.log('24max: '+rows[0].maxTemp);
   });
   //format response
 
