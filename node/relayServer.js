@@ -1,7 +1,7 @@
 //setup db connection for sensor store
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host     : '192.168.42.103',
+  host     : 'synology',
   user     : 'greenhouse',
   password : 'arduino',
   database : 'projectGreenhouse',
@@ -29,7 +29,7 @@ var outgoing; //setup connection place holder
 //connect to data server
 
 var WebSocket = require('ws');
-var dataSocket = new WebSocket('ws://192.168.42.150:8784');
+var dataSocket = new WebSocket('ws://localhost:8784');
 console.log("connecting to data network");
 dataSocket.on('open', function() {
   console.log("connected to data server")
