@@ -72,6 +72,7 @@ connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp 
 
   //if websocket connections exist send the data back to the clients
   if( typeof outgoing ==="object") {
+    console.log(JSON.stringify(responseArray));
     outgoing.send(JSON.stringify(responseArray));
   }
 
