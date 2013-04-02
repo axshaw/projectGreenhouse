@@ -19,7 +19,9 @@ connection.connect(function(err, results) {
    }
 });
 
+
 var outgoing; //setup connection place holder
+
 //connection.end();
 
 //listen for connection
