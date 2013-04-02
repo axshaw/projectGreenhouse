@@ -1,4 +1,4 @@
 SELECT
-    max(value),
+    min(value),
 	timestamp
-FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY
+FROM sensorData WHERE timestamp >= NOW() - INTERVAL 7 DAY

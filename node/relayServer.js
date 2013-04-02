@@ -27,7 +27,6 @@ var outgoing; //setup connection place holder
 //listen for connection
 
 //connect to data server
-
 var WebSocket = require('ws');
 var dataSocket = new WebSocket('ws://localhost:8784');
 console.log("connecting to data network");
@@ -41,22 +40,37 @@ dataSocket.on('open', function() {
     console.log(" incoming connection made");
   });
 });
-//console.log('conect:'connection);
-dataSocket.on('message', function(message) {
+
+
+dataSocket.on('message', function(message) { //when data recieved from sensor net
   console.log('received: %s', message);
+  var responseArray={};
+  //iron out data array for multiple sensors
+
+  //send database insert
   var post  = {sensorId: parseFloat('001'), value: parseFloat(message)};
- // console.log(post);
-//  console.log(connection);
-
   var query = connection.query('INSERT INTO sensorData SET ?', post, function(err, result) {
-  // Neat!
+    console.log(result + " " + err);
   });
-  console.log(query.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
+  console.log(query.sql);
 
+  //fetch amalgamated data for averages
+  connection.query( 'SELECT min(value), timestamp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
+    // And done with the connection.
+    responseArray.24hourMin = rows;
+    console.log(rows);
+  });
+
+
+  //format response
+
+
+  //if websocket connections exist send the data back to the clients
   if( typeof outgoing ==="object") {
     outgoing.send(message);
   }
-//  wss.send(message);
+
+
 });
 
 dataSocket.on('error',function(message){

@@ -95,7 +95,7 @@
 			}
 			connection.onmessage = function(msg){  
 			 temp = msg.data;
-			  var milliseconds = (new Date).getTime();
+			  var milliseconds = Math.round((new Date()).getTime() / 1000);
 			  var dataStream = {};
 			  	dataStream.x = milliseconds;
 			  	dataStream.y = parseFloat(msg.data);
