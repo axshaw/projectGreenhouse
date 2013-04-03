@@ -21,7 +21,7 @@ connection.connect(function(err, results) {
 
 
 var outgoing; //setup connection place holder
-
+ var responseArray;
 //connection.end();
 
 //listen for connection
@@ -44,7 +44,7 @@ dataSocket.on('open', function() {
 
 dataSocket.on('message', function(message) { //when data recieved from sensor net
   console.log('received: %s', message);
-  var responseArray={};
+  responseArray={};
   //iron out data array for multiple sensors
 
   //send database insert
@@ -63,8 +63,8 @@ dataSocket.on('message', function(message) { //when data recieved from sensor ne
 
 connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
     // And done with the connection.
-    responseArray['dayMax'] = rows[0].maxTemp;
     console.log('24max: '+rows[0].maxTemp);
+    responseArray['dayMax'] = rows[0].maxTemp;
   });
   //format response
 
