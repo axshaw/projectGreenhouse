@@ -7,8 +7,8 @@ var connection = mysql.createConnection({
   database : 'projectGreenhouse',
 });
 
+//open connection to data store
 console.log("connecting to Mysql .....");
-
 connection.connect(function(err, results) {
     if (err) {
         console.log("ERROR: " + err.message);
@@ -21,7 +21,7 @@ connection.connect(function(err, results) {
 
 
 var outgoing; //setup connection place holder
- var responseArray={};
+ var responseArray={}; //setup responseArray!
 
 
 //setinterval call to gather reporting stats
@@ -29,15 +29,25 @@ setInterval(function(){
   
   //fetch amalgamated data for averages
   connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
-    // And done with the connection.
     responseArray['dayMin'] = rows[0].minTemp;
-    console.log('24min: '+rows[0].minTemp);
   });
 
   connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
-    // And done with the connection.
-    console.log('24max: '+rows[0].maxTemp);
     responseArray['dayMax'] = rows[0].maxTemp;
+  });
+  connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 7 DAY', function(err, rows) {
+    responseArray['weekMin'] = rows[0].minTemp;
+  });
+
+  connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 7 DAY', function(err, rows) {
+    responseArray['weekMax'] = rows[0].maxTemp;
+  });
+  connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 28 DAY', function(err, rows) {
+    responseArray['monthMin'] = rows[0].minTemp;
+  });
+
+  connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 28 DAY', function(err, rows) {
+    responseArray['monthMax'] = rows[0].maxTemp;
   });
 
 },60000);

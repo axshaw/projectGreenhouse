@@ -94,9 +94,7 @@
 			   console.log('Connection closed');
 			}
 			connection.onmessage = function(msg){  
-				console.log(JSON.stringify(msg));
 			 livedata = JSON.parse(msg.data);
-			 console.log('livedata: '+msg.data);
 			 temp = livedata['sensorData'];
 			  var milliseconds = Math.round((new Date()).getTime() / 1000);
 			  var dataStream = {};
@@ -106,6 +104,10 @@
 			    document.getElementById('current').innerHTML = temp + ' C';
 			    document.getElementById('24hourMin').innerHTML = livedata['dayMin'] + ' C';
 			    document.getElementById('24hourMax').innerHTML = livedata['dayMax'] + ' C';
+			    document.getElementById('weekMin').innerHTML = livedata['weekMin'] + ' C';
+			    document.getElementById('weekMax').innerHTML = livedata['weekMax'] + ' C';
+			    document.getElementById('monthMin').innerHTML = livedata['monthMin'] + ' C';
+			    document.getElementById('monthMax').innerHTML = livedata['monthMax'] + ' C';
 			   
 			}  
 			// Log errors
@@ -119,12 +121,12 @@
     <h1>Project Greenhouse</h1>
     <div class="row">
       <div class="span2">Current<h2><div id="current"></div></h2></div>
-	  <div class="span1">24h Low<h3><div id="24hourMin"></div></h3></div>	
-      <div class="span1">24h High<h3><div id="24hourMax"></div></h3></div>
-	  <div class="span1">7d High</div>	
-      <div class="span1">7d Low</div>
-	  <div class="span1">28d High</div>
-	  <div class="span1">28d Low</div>
+	  <div class="span1">24h Low<h5><div id="24hourMin"></div></h5></div>	
+      <div class="span1">24h High<h5><div id="24hourMax"></div></h5></div>
+	  <div class="span1">7d High<h5><div id="weekMin"></div></h5></div>	
+      <div class="span1">7d Low<h5><div id="weekMax"></div></h5></div>
+	  <div class="span1">28d High<h5><div id="monthMin"></div></h5></div>
+	  <div class="span1">28d Low<h5><div id="monthMax"></div></h5></div>
 	  <div class="span4">Graph
 	  	<div id="chart_container">
         	<div id="y_axis"></div>
