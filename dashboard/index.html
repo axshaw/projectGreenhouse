@@ -104,8 +104,8 @@
 			  	dataStream.y = parseFloat(livedata['sensorData']);
 			  	update(dataStream);
 			    document.getElementById('current').innerHTML = temp + ' C';
-			    document.getElementById('24hourMin').innerHTML = livedata['24hourMin'] + ' C';
-			    document.getElementById('24hourMax').innerHTML = livedata['24hourMax'] + ' C';
+			    document.getElementById('24hourMin').innerHTML = livedata['dayMin'] + ' C';
+			    document.getElementById('24hourMax').innerHTML = livedata['dayMax'] + ' C';
 			   
 			}  
 			// Log errors

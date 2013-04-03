@@ -21,10 +21,27 @@ connection.connect(function(err, results) {
 
 
 var outgoing; //setup connection place holder
- var responseArray;
-//connection.end();
+ var responseArray={};
 
-//listen for connection
+
+//setinterval call to gather reporting stats
+setInterval(function(){
+  
+  //fetch amalgamated data for averages
+  connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
+    // And done with the connection.
+    responseArray['dayMin'] = rows[0].minTemp;
+    console.log('24min: '+rows[0].minTemp);
+  });
+
+  connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
+    // And done with the connection.
+    console.log('24max: '+rows[0].maxTemp);
+    responseArray['dayMax'] = rows[0].maxTemp;
+  });
+
+},60000);
+
 
 //connect to data server
 var WebSocket = require('ws');
@@ -32,7 +49,7 @@ var dataSocket = new WebSocket('ws://localhost:8784');
 console.log("connecting to data network");
 dataSocket.on('open', function() {
   console.log("connected to data server")
-
+  //create local socket server to push data out, do this if connection is made to stats server
   var WebSocketServer = require('ws').Server
     ,wss = new WebSocketServer({port: 8181});
   wss.on('connection', function(ws) {
@@ -44,7 +61,7 @@ dataSocket.on('open', function() {
 
 dataSocket.on('message', function(message) { //when data recieved from sensor net
   console.log('received: %s', message);
-  responseArray={};
+  
   //iron out data array for multiple sensors
 
   //send database insert
@@ -54,18 +71,7 @@ dataSocket.on('message', function(message) { //when data recieved from sensor ne
   });
   console.log(query.sql);
 
-  //fetch amalgamated data for averages
-  connection.query( 'SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
-    // And done with the connection.
-    responseArray['dayMin'] = rows[0].minTemp;
-    console.log('24min: '+rows[0].minTemp);
-  });
-
-connection.query( 'SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
-    // And done with the connection.
-    console.log('24max: '+rows[0].maxTemp);
-    responseArray['dayMax'] = rows[0].maxTemp;
-  });
+  
   //format response
 
   responseArray['sensorData'] = message;
