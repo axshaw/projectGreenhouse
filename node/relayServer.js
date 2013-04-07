@@ -67,7 +67,7 @@ dataSocket.on('open', function() {
     console.log(" incoming connection made");
   });
 
- wss.on('close', function(ws) {
+ wss.on('close', function() {
   outgoing=null;
  }); 
 });
@@ -93,7 +93,9 @@ dataSocket.on('message', function(message) { //when data recieved from sensor ne
   //if websocket connections exist send the data back to the clients
   if( typeof outgoing ==="object") {
     console.log(JSON.stringify(responseArray));
-    outgoing.send(JSON.stringify(responseArray));
+    outgoing.send(JSON.stringify(responseArray),function(error){
+      console.log(error);
+    });
   }
 
 
