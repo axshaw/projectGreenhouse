@@ -6,11 +6,18 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="rickshaw-master/rickshaw.min.css">
+    <link rel="stylesheet" href="js/jQRangeSlider-5.1/css/classic.css" type="text/css" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="rickshaw-master/vendor/d3.layout.min.js"></script>
 	<script src="rickshaw-master/rickshaw.min.js"></script>
 	<script src="rickshaw-master/src/js/Rickshaw.Fixtures.Time.js"></script>
 	<script src="rickshaw-master/src/js/Rickshaw.Graph.Axis.Time.js"></script>
+
+
+	 
+
     <style>
 		#chart_container {
 		        position: relative;
@@ -118,26 +125,58 @@
 			</script>
   </head>
   <body>
-    <h1>Project Greenhouse</h1>
+    <a class="brand" href="#">Project Greenhouse</a>
     <div class="row">
       <div class="span2">Current<h2><div id="current"></div></h2></div>
 	  <div class="span1">24h Low<h5><div id="24hourMin"></div></h5></div>	
       <div class="span1">24h High<h5><div id="24hourMax"></div></h5></div>
-	  <div class="span1">7d High<h5><div id="weekMin"></div></h5></div>	
-      <div class="span1">7d Low<h5><div id="weekMax"></div></h5></div>
-	  <div class="span1">28d High<h5><div id="monthMin"></div></h5></div>
-	  <div class="span1">28d Low<h5><div id="monthMax"></div></h5></div>
+	  <div class="span1">7d Low<h5><div id="weekMin"></div></h5></div>	
+      <div class="span1">7d High<h5><div id="weekMax"></div></h5></div>
+	  <div class="span1">28d low<h5><div id="monthMin"></div></h5></div>
+	  <div class="span1">28d High<h5><div id="monthMax"></div></h5></div>
 	  <div class="span4">Graph
-	  	<div id="chart_container">
-        	<div id="y_axis"></div>
-        	<div id="chart"></div>
-		</div>
-
-			
+	  	..
 	  </div>
-
 	</div>
-    <script src="http://code.jquery.com/jquery.js"></script>
+	<div class="row" style="300px;">
+	  	<div class="span8">Chart
+	  		<div id="chart_container">
+	    		<div id="y_axis"></div>
+	    		<div id="chart"></div>
+
+	    		<p>
+				  <label for="amount">Date range:</label>
+				  <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+				</p>
+				 
+				<div id="slider-range"></div>
+
+
+			</div>
+		</div>
+		  <div class="span4">..</div>
+	</div>
+	
+	
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+  </script>
   </body>
 </html>
