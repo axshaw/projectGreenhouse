@@ -66,6 +66,10 @@ dataSocket.on('open', function() {
     outgoing = ws;
     console.log(" incoming connection made");
   });
+
+ wss.on('close', function(ws) {
+  outgoing=null;
+ }); 
 });
 
 
