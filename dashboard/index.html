@@ -6,179 +6,162 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="rickshaw-master/rickshaw.min.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 
-	<script src="http://d3js.org/d3.v3.min.js"></script>
-	<script src="rickshaw-master/vendor/d3.layout.min.js"></script>
-	<script src="rickshaw-master/rickshaw.min.js"></script>
-	<script src="rickshaw-master/src/js/Rickshaw.Fixtures.Time.js"></script>
-	<script src="rickshaw-master/src/js/Rickshaw.Graph.Axis.Time.js"></script>
-
-
-	 
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="rickshaw-master/vendor/d3.layout.min.js"></script>
+    <script src="rickshaw-master/rickshaw.min.js"></script>
+    <script src="rickshaw-master/src/js/Rickshaw.Fixtures.Time.js"></script>
+    <script src="rickshaw-master/src/js/Rickshaw.Graph.Axis.Time.js"></script>
 
     <style>
-		#chart_container {
-		        position: relative;
-		        font-family: Arial, Helvetica, sans-serif;
-		}
-		#chart {
-		        position: relative;
-		        left: 40px;
-		}
-		#y_axis {
-		        position: absolute;
-		        top: 0;
-		        bottom: 0;
-		        width: 40px;
-		}
-	</style>
-	<script>
+        #chart_container {
+                position: relative;
+                font-family: Arial, Helvetica, sans-serif;
+        }
+        #chart {
+                position: relative;
+                left: 40px;
+        }
+        #y_axis {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+        }
+    </style>
+    <script>
+/*global Rickshaw*/
+var data = [];
+    var graphEnabled = false;
+    var graph;
+    var x_axis;
+    var y_axis;
+    var hoverDetail;
+    var highlighter;
+    var temp;
 
-			var data = [];
+    function update(dataStream) {
+        "use strict";
+        console.log(dataStream);
+        console.log(data);
+        data.push(dataStream);
+       // data.shift();
+       
+       
+       if(graphEnabled === false) {
+             graph = new Rickshaw.Graph( {
+                    element: document.querySelector("#chart"),
+                    renderer: 'line',
+                    width: 580,
+                    min: -5,
+                    height: 250,
+                    series:[ {
+                            color: 'steelblue',
+                            data: data
+                    } ]
+            } );
 
-			var graphEnabled=false;
-			var graph;
-			var x_axis;
-			var y_axis;
-			var hoverDetail;
-			var highlighter;
-			var temp;
-			var tv = 250;
+             x_axis = new Rickshaw.Graph.Axis.Time( { 
+                graph: graph
+             } );
 
-			function update(dataStream)	{
-				console.log(dataStream);
-				console.log(data);
-				data.push(dataStream);
-			   // data.shift();
-			   
-			   
-			   if(graphEnabled==false) {
-					 graph = new Rickshaw.Graph( {
-					        element: document.querySelector("#chart"),
-					        renderer: 'line',
-					        width: 580,
-					        min: -5,
-					        height: 250,
-					        series: new Rickshaw.Series.FixedDuration([{ name: 'Temp' }], undefined, {
-								timeInterval: tv,
-								maxDataPoints: 10000,
-								timeBase: new Date().getTime() / 1000
-							}) 
-					} );
+             y_axis = new Rickshaw.Graph.Axis.Y( {
+                    graph: graph,
+                    orientation: 'left',
+                    tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+                    element: document.getElementById('y_axis')
+            } );
 
-					 x_axis = new Rickshaw.Graph.Axis.Time( { 
-					 	graph: graph
-					 } );
+             hoverDetail = new Rickshaw.Graph.HoverDetail( {
+                graph: graph
+            } );
 
-					 y_axis = new Rickshaw.Graph.Axis.Y( {
-					        graph: graph,
-					        orientation: 'left',
-					        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-					        element: document.getElementById('y_axis'),
-					} );
+            highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
+                graph: graph
+            } );
 
-					 hoverDetail = new Rickshaw.Graph.HoverDetail( {
-						graph: graph
-					} );
+            graphEnabled = true;
+        }
+         
+         graph.render();
+    }
 
-					highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
-						graph: graph
-					} );
+    //var connection = new WebSocket("ws://home.theshaws.net:8181");  
+    var connection = new WebSocket("ws://10.11.12.15:8181");  //dev could use hosts
+    connection.onopen = function(){  
+        "use strict";
+        console.log('Socket has been opened!');  
+    };
+    connection.onclose = function(){
+       "use strict";
+       console.log('Connection closed');
+    };
+    connection.onmessage = function(msg){  
+       "use strict";
+       var livedata = JSON.parse(msg.data);
+       temp = livedata.sensorData;
+       var milliseconds = Math.round((new Date()).getTime() / 1000);
+       var dataStream = {};
+       dataStream.x = milliseconds;
+       dataStream.y = parseFloat(livedata.sensorData);
+       update(dataStream);
+       document.getElementById('current').innerHTML = temp + ' C';
+       document.getElementById('24hourMin').innerHTML = livedata.dayMin + ' C';
+       document.getElementById('24hourMax').innerHTML = livedata.dayMax + ' C';
+       document.getElementById('weekMin').innerHTML = livedata.weekMin + ' C';
+       document.getElementById('weekMax').innerHTML = livedata.weekMax + ' C';
+       document.getElementById('monthMin').innerHTML = livedata.monthMin + ' C';
+       document.getElementById('monthMax').innerHTML = livedata.monthMax + ' C';
+       
+    }; 
+    // Log errors
+    connection.onerror = function (error) {
+      "use strict";
+      console.log('WebSocket Error ' + error);
+    };
 
-					graphEnabled = true;
-				};
-				 graph.series.addData(data);
-				 graph.render();
-			};
-
-
-
-			var connection = new WebSocket("ws://relay.greenhouse:8181");  
-			//var connection = new WebSocket("ws://localhost:8181");  
-			connection.onopen = function(){  
-			    console.log('Socket has been opened!');  
-			} 
-			connection.onclose = function(){
-			   console.log('Connection closed');
-			}
-			connection.onmessage = function(msg){  
-			 livedata = JSON.parse(msg.data);
-			 temp = livedata['sensorData'];
-			  var milliseconds = Math.round((new Date()).getTime() / 1000);
-			  var dataStream = {};
-			  	dataStream.x = milliseconds;
-			  	dataStream.y = parseFloat(livedata['sensorData']);
-			  	update(dataStream);
-			    document.getElementById('current').innerHTML = temp + ' C';
-			    document.getElementById('24hourMin').innerHTML = livedata['dayMin'] + ' C';
-			    document.getElementById('24hourMax').innerHTML = livedata['dayMax'] + ' C';
-			    document.getElementById('weekMin').innerHTML = livedata['weekMin'] + ' C';
-			    document.getElementById('weekMax').innerHTML = livedata['weekMax'] + ' C';
-			    document.getElementById('monthMin').innerHTML = livedata['monthMin'] + ' C';
-			    document.getElementById('monthMax').innerHTML = livedata['monthMax'] + ' C';
-			   
-			}  
-			// Log errors
-			connection.onerror = function (error) {
-			  console.log('WebSocket Error ' + error);
-			};
-
-			</script>
+    </script>
   </head>
   <body>
     <a class="brand" href="#">Project Greenhouse</a>
     <div class="row">
       <div class="span2">Current<h2><div id="current"></div></h2></div>
-	  <div class="span1">24h Low<h5><div id="24hourMin"></div></h5></div>	
+      <div class="span1">24h Low<h5><div id="24hourMin"></div></h5></div>   
       <div class="span1">24h High<h5><div id="24hourMax"></div></h5></div>
-	  <div class="span1">7d Low<h5><div id="weekMin"></div></h5></div>	
+      <div class="span1">7d Low<h5><div id="weekMin"></div></h5></div>  
       <div class="span1">7d High<h5><div id="weekMax"></div></h5></div>
-	  <div class="span1">28d low<h5><div id="monthMin"></div></h5></div>
-	  <div class="span1">28d High<h5><div id="monthMax"></div></h5></div>
-	  <div class="span4">Graph
-	  	..
-	  </div>
-	</div>
-	<div class="row" style="300px;">
-	  	<div class="span8">Chart
-	  		<div id="chart_container">
-	    		<div id="y_axis"></div>
-	    		<div id="chart"></div>
+      <div class="span1">28d low<h5><div id="monthMin"></div></h5></div>
+      <div class="span1">28d High<h5><div id="monthMax"></div></h5></div>
+      <div class="span4">Graph
+        ..
+      </div>
+    </div>
+    <div class="row" style="300px;">
+        <div class="span8">Chart
+            <div id="chart_container">
+                <div id="y_axis"></div>
+                <div id="chart"></div>
 
-	    		<p>
-				  <label for="amount">Date range:</label>
-				  <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
-				</p>
-				 
-				<div id="slider-range"></div>
+                <p>
+                  <label for="amount">Date range:</label>
+                  <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+                </p>
+                 
+                <div id="slider-range"></div>
 
 
-			</div>
-		</div>
-		  <div class="span4">..</div>
-	</div>
-	
-	
+            </div>
+        </div>
+          <div class="span4">..</div>
+    </div>
+    
+    
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
     <script src="js/bootstrap.min.js"></script>
 
-    <script>
-  $(function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-  });
-  </script>
+   
   </body>
 </html>
