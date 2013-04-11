@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "start": "node ./bin/http-server",
-    "test": "mocha --recursive test/",
+    "test": "cd test; mocha",
     "predeploy": "echo life will find a way",
     "postdeploy": "echo clean"
   },
