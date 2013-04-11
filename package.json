@@ -1,0 +1,39 @@
+{
+  "name": "projectGreenhouse",
+  "preferGlobal": false,
+  "version": "0.0.1",
+  "author": "Alex Shaw <alex@theshaws.net>",
+  "description": "relay server for projectGreenhouse",
+  "contributors": [ 
+    {
+      "name": "Alex Shaw",
+      "email": "alex@theshaws.net"
+    } 
+  ],
+  "scripts": {
+    "start": "node ./bin/http-server",
+    "test": "mocha --recursive test/",
+    "predeploy": "echo life will find a way",
+    "postdeploy": "echo clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axshaw/projectGreenhouse.git"
+  },
+  "keywords": "projectGreenhouse",
+  "dependencies" : {
+    "ws":"0.4.x",
+    "mysql":"2.0.x",
+    "expectjs":"0.0.x",
+    "should":"1.2.x"
+  },
+  "analyze": false,
+  "devDependencies": {
+    "zombie"    :  "1.4.x",
+    "mocha" :  "1.9.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}

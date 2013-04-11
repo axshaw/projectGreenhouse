@@ -1,17 +1,7 @@
 
 /*jslint node: true */
-var enviroment = process.env.PGH;
-
-console.log("env = " + enviroment);
 var outgoing; //setup connection place holder
 var responseArray = {}; //setup responseArray!
-responseArray.dayMin = null;
-responseArray.dayMax = null;
-responseArray.weekMin = null;
-responseArray.weekMax = null;
-responseArray.monthMin = null;
-responseArray.monthMax = null;
-responseArray.sensorData = null;
 
 //setup db connection for sensor store
 var mysql = require('mysql');

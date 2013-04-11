@@ -83,12 +83,11 @@ var data = [];
 
             graphEnabled = true;
         }
-         
          graph.render();
     }
 
-    //var connection = new WebSocket("ws://home.theshaws.net:8181");  
-    var connection = new WebSocket("ws://10.11.12.15:8181");  //dev could use hosts
+    var connection = new WebSocket("ws://home.theshaws.net:8181");  
+    //var connection = new WebSocket("ws://10.11.12.15:8181");  //dev could use hosts
     connection.onopen = function(){  
         "use strict";
         console.log('Socket has been opened!');  
