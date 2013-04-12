@@ -28,9 +28,6 @@ Client Scripts
 The front end display using web based tools to display live reports
 
 
-builds run on http://about.travis-ci.org/
-
-
 Installation
 ==============
 
@@ -41,3 +38,5 @@ Dev enviroment
 ==============
 
 The repo comes with a vagrant config that will boot up 3 VMs. The VM enviroment contains a fake ardunio script that randomly generates data to seed the relay and dev db. 
+
+"!https://travis-ci.org/axshaw/projectGreenhouse.png!":https://travis-ci.org/axshaw/projectGreenhouse
