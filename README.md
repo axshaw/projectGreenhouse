@@ -1,7 +1,7 @@
 projectGreenhouse
 =================
 
-Monitoring and automation of my greenhouse. https://travis-ci.org/axshaw/projectGreenhouse.png
+Monitoring and automation of my greenhouse. [![Build Status](https://travis-ci.org/axshaw/projectGreenhouse.png)](https://travis-ci.org/axshaw/projectGreenhouse)
 
 This project is at very very early alpha stage. Most of the features are yet to be implemented.
 
@@ -39,4 +39,4 @@ Dev enviroment
 
 The repo comes with a vagrant config that will boot up 3 VMs. The VM enviroment contains a fake ardunio script that randomly generates data to seed the relay and dev db. 
 
-https://travis-ci.org/axshaw/projectGreenhouse.png
+[![Build Status](https://travis-ci.org/axshaw/projectGreenhouse.png)](https://travis-ci.org/axshaw/projectGreenhouse)
