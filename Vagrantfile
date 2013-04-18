@@ -8,27 +8,29 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise32"
-  
+  config.ssh.timeout = 300    
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
 
-  config.vm.define :db do |db|
-    db.vm.provision :shell, :path => "test/bootstraps/dbBootstrap.sh"
-    db.vm.network :private_network, ip: "10.11.12.14"
-  end
-
-
-  config.vm.define :pi do |pi|
+ config.vm.define :pi do |pi|
     pi.vm.provision :shell, :path => "test/bootstraps/piBootstrap.sh"  
     pi.vm.network :private_network, ip: "10.11.12.15"
   end
 
-  config.vm.define :web do |web|
-    web.vm.provision :shell, :path => "test/bootstraps/webBootstrap.sh"  
-    web.vm.network :private_network, ip: "10.11.12.13"
-  end
+  #config.vm.define :web do |web|
+  #  web.vm.provision :shell, :path => "test/bootstraps/webBootstrap.sh"  
+  #  web.vm.network :private_network, ip: "10.11.12.13"
+  #end
+
+  #config.vm.define :db do |db|
+  #  db.vm.network :private_network, ip: "10.11.12.14"
+  #  db.vm.provision :shell, :path => "test/bootstraps/dbBootstrap.sh"
+  #end
+
+
+ 
 
  
 
@@ -58,7 +60,7 @@ Vagrant.configure("2") do |config|
   #
   # config.vm.provider :virtualbox do |vb|
   #   # Don't boot with headless mode
-  #   vb.gui = true
+  #  vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
