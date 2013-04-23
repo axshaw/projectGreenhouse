@@ -1,6 +1,4 @@
 describe('dashboard page', function(){
-	var Browser = require('zombie');
-
 	var app
 	before(function() {
 		

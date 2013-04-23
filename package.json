@@ -32,12 +32,9 @@
   },
   "analyze": false,
   "devDependencies": {
-    "zombie"    :  "1.4.x",
     "mocha" :  "1.9.x",
     "should": "1.2.x",
     "inotify": "1.2.x",
-    "contextify": "0.1.x",
-    "jsdom": "0.6.x"
   },
   "license": "MIT",
   "engines": {
