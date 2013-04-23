@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `projectGreenhouse_test`
+-- Database: `projectGreenhouse`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sensorData`
+-- Table structure for table `projectGreenhouse`
 --
 
 CREATE TABLE IF NOT EXISTS `sensorData` (

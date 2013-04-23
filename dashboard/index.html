@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bootstrap 101 Template</title>
+    <title>Project Greenhouse</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -86,8 +86,8 @@ var data = [];
          graph.render();
     }
 
-    var connection = new WebSocket("ws://home.theshaws.net:8181");  
-    //var connection = new WebSocket("ws://10.11.12.15:8181");  //dev could use hosts
+    //var connection = new WebSocket("ws://home.theshaws.net:8181");  
+    var connection = new WebSocket("ws://10.11.12.15:8181");  //dev could use hosts
     connection.onopen = function(){  
         "use strict";
         console.log('Socket has been opened!');  
@@ -123,7 +123,16 @@ var data = [];
     </script>
   </head>
   <body>
-    <a class="brand" href="#">Project Greenhouse</a>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Project Greenhouse</a>
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="row">
       <div class="span2">Current<h2><div id="current"></div></h2></div>
       <div class="span1">24h Low<h5><div id="24hourMin"></div></h5></div>   

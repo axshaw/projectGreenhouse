@@ -8,11 +8,15 @@
     {
       "name": "Alex Shaw",
       "email": "alex@theshaws.net"
-    } 
+    },
+    {
+      "name": "Damian Crawford",
+      "email": "fig@hotmail.co.uk"
+    }
   ],
   "scripts": {
-    "start": "node ./bin/http-server",
-    "test": "cd test; mocha",
+    "start": "node ./node/relayServer.js",
+    "test": "make test",
     "predeploy": "echo life will find a way",
     "postdeploy": "echo clean"
   },
@@ -24,13 +28,16 @@
   "dependencies" : {
     "ws":"0.4.x",
     "mysql":"2.0.x",
-    "expectjs":"0.0.x",
-    "should":"1.2.x"
+    "config":"0.4.x"
   },
   "analyze": false,
   "devDependencies": {
     "zombie"    :  "1.4.x",
-    "mocha" :  "1.9.x"
+    "mocha" :  "1.9.x",
+    "should": "1.2.x",
+    "inotify": "1.2.x",
+    "contextify": "0.1.x",
+    "jsdom": "0.6.x"
   },
   "license": "MIT",
   "engines": {

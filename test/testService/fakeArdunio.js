@@ -8,6 +8,9 @@ dataserver.on('connection', function(ws) {
 	console.log(" incoming connection made");
     setInterval(function()	{
     	var faketemp = Math.floor(Math.random()*11);
+    	var internalFaketemp = faketemp + 10;
+    	var fakeLight = Math.floor(Math.random()*1025);
+    	var fakeReturn = "{{2:" + internalFaketemp + "},{1:" + faketemp + "},{3:" + fakeLight + "}}";
     	ws.send(faketemp.toString(),function(error){
       		console.log(error);
     });

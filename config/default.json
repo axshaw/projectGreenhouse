@@ -1,0 +1,13 @@
+{
+  "ardHost": "localhost",
+  "ardPort": 8784,
+  "piHost": "localhost",
+  "piPort": 8181,
+  "db":{
+		"Host": "synology",
+		"Name": "projectGreenhouse",
+		"User": "greenhouse",
+		"Pass": "arduino"
+	}
+}
+

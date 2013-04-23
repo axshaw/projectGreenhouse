@@ -7,30 +7,16 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  config.vm.box = "projectgreenhouse"
   
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-
-
-  config.vm.define :db do |db|
-    db.vm.provision :shell, :path => "test/bootstraps/dbBootstrap.sh"
-    db.vm.network :private_network, ip: "10.11.12.14"
-  end
-
+  config.vm.box_url = "https://s3-eu-west-1.amazonaws.com/projectgreenhouse/projectgreenhouse.box"
 
   config.vm.define :pi do |pi|
     pi.vm.provision :shell, :path => "test/bootstraps/piBootstrap.sh"  
     pi.vm.network :private_network, ip: "10.11.12.15"
   end
-
-  config.vm.define :web do |web|
-    web.vm.provision :shell, :path => "test/bootstraps/webBootstrap.sh"  
-    web.vm.network :private_network, ip: "10.11.12.13"
-  end
-
- 
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,

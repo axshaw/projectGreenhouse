@@ -2,18 +2,18 @@
 /*jslint node: true */
 var outgoing; //setup connection place holder
 var responseArray = {}; //setup responseArray!
-
+var CONFIG = require('config');
 //setup db connection for sensor store
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host     : 'synology',
-    user     : 'greenhouse',
-    password : 'arduino',
-    database : 'projectGreenhouse'
+    host     : CONFIG.db.Host, 
+    user     : CONFIG.db.User,
+    password : CONFIG.db.Pass,
+    database : CONFIG.db.Name
 });
 
 //open connection to data store
-console.log("connecting to Mysql .....");
+console.log("connecting to Mysql ..... db =" + CONFIG.db.Name);
 connection.connect(function(err) {
     "use strict";
     if (err) {
@@ -32,7 +32,6 @@ setInterval(function() {
     connection.query('SELECT min(value) as minTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
         responseArray.dayMin = rows[0].minTemp;
     });
-
     connection.query('SELECT max(value) as maxTemp FROM sensorData WHERE timestamp >= NOW() - INTERVAL 1 DAY', function(err, rows) {
         responseArray.dayMax = rows[0].maxTemp;
     });
@@ -54,13 +53,13 @@ setInterval(function() {
 
 //connect to data server
 var WebSocketconn = require('ws');
-var dataSocket = new WebSocketconn('ws://localhost:8784');
+var dataSocket = new WebSocketconn('ws://'+CONFIG.ardHost+':'+CONFIG.ardPort);
 console.log("connecting to data network");
 dataSocket.on('open', function() {
     "use strict";
     console.log("connected to data server");
     //create local socket server to push data out, do this if connection is made to stats server
-    var WebSocketServer = require('ws').Server, wss = new WebSocketServer({port: 8181});
+    var WebSocketServer = require('ws').Server, wss = new WebSocketServer({port: CONFIG.piPort});
     wss.on('connection', function(ws) {
         outgoing = ws;
         console.log(" incoming connection made");
