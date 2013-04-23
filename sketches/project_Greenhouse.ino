@@ -42,23 +42,23 @@ void loop(void)
   analogVal = analogRead(ANAL_LOG_0);
   
   Serial.print('{');
-    Serial.print('{');
+    Serial.print('"');
       Serial.print( INDOOR_SENSOR_ONE );
-      Serial.print(':');
+      Serial.print('":"');
       Serial.print( indoorsensor.getTempCByIndex(0) );
-     Serial.print('}');
+     Serial.print('"');
     Serial.print(',');
-     Serial.print('{');
+     Serial.print('"');
       Serial.print( OUTDOOR_SENSOR_ONE );
-      Serial.print(':');
+      Serial.print('":"');
       Serial.print( outdoorsensor.getTempCByIndex(0) );
-     Serial.print('}');
+     Serial.print('"');
      Serial.print(',');
-     Serial.print('{');
+     Serial.print('"');
       Serial.print( LIGHT_SENSOR );
-      Serial.print(':');
+      Serial.print('":"');
        Serial.print(analogVal);
-     Serial.print('}');
+     Serial.print('"');
     Serial.print('}');
     
   Serial.println("");//print line break   
