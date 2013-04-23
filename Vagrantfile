@@ -7,6 +7,7 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
+
   config.vm.box = "projectgreenhouse"
   
   # The url from where the 'config.vm.box' box will be fetched if it
@@ -44,7 +45,7 @@ Vagrant.configure("2") do |config|
   #
   # config.vm.provider :virtualbox do |vb|
   #   # Don't boot with headless mode
-  #   vb.gui = true
+  #  vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
