@@ -72,7 +72,11 @@ dataSocket.on('open', function() {
 
 function parseMessage(message) {
 
-}
+};
+
+function addData(key,value) {
+
+};
 
 dataSocket.on('message', function(message) { //when data recieved from sensor net
     "use strict";
