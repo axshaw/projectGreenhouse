@@ -43,9 +43,9 @@ var data = [];
 
     function update(dataStream) {
         "use strict";
-        console.log(dataStream);
-        console.log(data);
-        data.push(dataStream);
+       // console.log(dataStream);
+       // console.log(data);
+       // data.push(dataStream);
        // data.shift();
        
        
@@ -99,8 +99,10 @@ var data = [];
     };
     connection.onmessage = function(msg){  
        "use strict";
-       var livedata = JSON.parse(msg.data);
-       temp = livedata.sensorData;
+       console.log(msg.data);
+       var livedata = msg.data;
+       var sensorData = JSON.parse(livedata.sensorData);_
+       temp = livedata['1'];
        var milliseconds = Math.round((new Date()).getTime() / 1000);
        var dataStream = {};
        dataStream.x = milliseconds;
@@ -124,7 +126,7 @@ var data = [];
     </script>
   </head>
   <body>
-    <div class="navbar navbar-static-top">
+    <div class="navbar">
       <div class="navbar-inner">
         <a class="brand" href="#">Project Greenhouse</a>
         <ul class="nav">

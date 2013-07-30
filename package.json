@@ -34,7 +34,8 @@
   "devDependencies": {
     "mocha" :  "1.9.x",
     "should": "1.2.x",
-    "inotify": "1.2.x"
+    "inotify": "1.2.x",
+    "forever": "0.10.x"
   },
   "license": "MIT",
   "engines": {

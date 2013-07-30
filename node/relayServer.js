@@ -71,36 +71,35 @@ dataSocket.on('open', function() {
 });
 
 function parseMessage(message) {
-
-};
-
-function addData(key,value) {
-
-};
-
-dataSocket.on('message', function(message) { //when data recieved from sensor net
-    "use strict";
-    console.log('received: %s', message);
-    //iron out data array for multiple sensors
-    //send database insert
     var messageObject = JSON.parse(message, function(key, value) {
         if (typeof value === "string") {
             console.log(key + ' - ' + value);
-            var post  = {sensorId: parseFloat(key), value: parseFloat(value)},
+            //add to database
+            addData(key,value);
+        }; 
+    });
+};
+
+function addData(key,value) {
+    var post  = {sensorId: parseFloat(key), value: parseFloat(value)},
             query = connection.query('INSERT INTO sensorData SET ?', post, function(err) {
                 if (err !== null) {
                     console.log(err);
                 }
             });
             console.log(query.sql);
-        };
-        
-    });
+};
+
+dataSocket.on('message', function(message) { //when data recieved from sensor net
+    "use strict";
+    console.log('received: %s', message);
+    parseMessage(message);
+    
     responseArray.sensorData = message;
     //if websocket connections exist send the data back to the clients
     if (typeof outgoing === "object") {
-        console.log(JSON.stringify(responseArray));
-        outgoing.send(JSON.stringify(responseArray), function(error) {
+        console.log(responseArray);
+        outgoing.send(responseArray, function(error) {
             console.log(error);
         });
     }
