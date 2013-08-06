@@ -12,17 +12,18 @@ gem install bunny
 
 apt-get install python-pip python-dev build-essential
 sudo pip install pika
-
+sudo pip install mock
 
 echo "---------------------------------------"
 echo "Setup complete starting services"
 echo "---------------------------------------"
 
 echo "starting provisioner (fake arduino)"
-python
+#python
 
 echo "starting archive service"
 ruby -rubygems /vagrant/ArchiveService/archiveService.rb &
 
 echo "starting nnode web service"
 #forever /vagrant/node/webService
+

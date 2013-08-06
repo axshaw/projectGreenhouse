@@ -34,6 +34,14 @@ Installation
 clone git repository.
 npm install
 
+Testing
+========
+
+Theres a range of testing stuff going on, there is some method in there somewhere.
+
+npm test
+
+
 Dev enviroment
 ==============
 
