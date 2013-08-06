@@ -8,7 +8,7 @@ test:;
 	echo "=======================================\n";\
 	echo "Running python tests\n\n";\
 	echo "=======================================\n";\
-	nosetests;\
+	nosetests --with-cov --cov .;\
 	echo " =======================================\n";\
 	echo "booting test environment\n\n";\
 	echo "=======================================\n";\
