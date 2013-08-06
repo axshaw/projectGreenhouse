@@ -45,6 +45,6 @@ npm test
 Dev enviroment
 ==============
 
-The repo comes with a vagrant config that will boot up 3 VMs. The VM enviroment contains a fake ardunio script that randomly generates data to seed the relay and dev db. 
+The repo comes with a vagrant config that will boot up 1 VMs. The VM enviroment contains a pythonthat randomly generates data to seed the relay and dev db. 
 
 [![Build Status](https://travis-ci.org/axshaw/projectGreenhouse.png)](https://travis-ci.org/axshaw/projectGreenhouse)
