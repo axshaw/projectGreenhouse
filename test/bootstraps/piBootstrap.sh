@@ -12,8 +12,9 @@ gem install bunny
 
 apt-get install python-pip python-dev build-essential
 sudo pip install pika
-sudo pip install mock
-
+sudo pip install mock #dev only really!
+sudo pip install nose #dev oly really!
+sudo npm install -g mocha
 echo "---------------------------------------"
 echo "Setup complete starting services"
 echo "---------------------------------------"

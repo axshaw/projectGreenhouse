@@ -4,7 +4,22 @@
 #import testArduinoService
 #
 import mock
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
+import unittest
+
+def test():
+	pass
+
+def test_mustOpenConnectiontoSerialPort():
+	pass
+
+def test_mustRecieveDatafromSerialPort():
+	pass
+
+def test_mustCreateConnectiontoRabbitMQ():
+	pass
+
+def test_mustSendMessagetoRabbitMQ():
+	pass
+
+def test_mustMaintainMessagetoRabbit():
+	pass
