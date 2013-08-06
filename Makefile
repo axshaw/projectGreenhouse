@@ -12,7 +12,7 @@ test:;
 	echo " =======================================\n";\
 	echo "booting test environment\n\n";\
 	echo "=======================================\n";\
-	npm install
+	npm install;\
 	$(NODE) test/testService/fakeArdunio.js & \
 	sleep 2;\
 	$(NODE) node/relayServer.js & \
