@@ -45,6 +45,8 @@ npm test
 Dev enviroment
 ==============
 
-The repo comes with a vagrant config that will boot up 1 VMs. The VM enviroment contains a pythonthat randomly generates data to seed the relay and dev db. 
+I have tried to keep a vagrant enviroment inline with the software required to run the complete system. The VM is configured to run all the services required including a virutal remote sensor that will send test data for integration tests. The VM is designed to be your development and build enviroment that will  run the complete setr of tests along with all required services. Right now I am in a continuous cycle of build, learn, refactor and the architecture is refining
+
+
 
 [![Build Status](https://travis-ci.org/axshaw/projectGreenhouse.png)](https://travis-ci.org/axshaw/projectGreenhouse)
