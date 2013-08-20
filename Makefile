@@ -4,11 +4,12 @@ NODE ?= node
 test:;
 	@echo "Testing ${PROJECT}....";\
 	export NODE_ENV=test;\
+	export PYTHONPATH=/vagrant/services/;\
 	echo $$NODE_ENV;\
 	echo "=======================================\n";\
 	echo "Running python tests\n\n";\
 	echo "=======================================\n";\
-	nosetests --with-cov --cov .;\
+	nosetests --with-cov --cov . services/;\
 	echo " =======================================\n";\
 	echo "booting test environment\n\n";\
 	echo "=======================================\n";\
