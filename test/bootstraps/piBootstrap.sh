@@ -19,8 +19,7 @@ sudo pip install mock #dev only really!
 sudo pip install nose #dev oly really!
 sudo pip install nose-cov
 sudo pip install pyserial
-sudo npm install -g mocha
-sudo npm install inotify
+
 echo "---------------------------------------"
 echo "Setup complete starting services"
 echo "---------------------------------------"
@@ -30,9 +29,4 @@ echo "starting provisioner (fake arduino)"
 socat -d -d pty,raw,echo=0 pty,raw,echo=0 &
 
 
-echo "starting archive service"
-#ruby -rubygems /vagrant/ArchiveService/archiveService.rb &
-
-echo "starting nnode web service"
-#forever /vagrant/node/webService
 
