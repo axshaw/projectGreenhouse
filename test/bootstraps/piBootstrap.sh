@@ -20,6 +20,8 @@ sudo pip install nose #dev oly really!
 sudo pip install nose-cov
 sudo pip install pyserial
 
+sudo gem install rspec
+sudo gem install serialport
 echo "---------------------------------------"
 echo "Setup complete starting services"
 echo "---------------------------------------"
