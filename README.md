@@ -60,7 +60,7 @@ make test
 
 That will run the tests and let you know if everything worked ok.
 
-While I remember the vagrant vm starts up socat that provides 2 virtual serial ports, its these ports that the system uses to simulate the ardunino connection.
+While I remember the vagrant vm starts up socat that provides 2 virtual serial ports, its these ports that the system uses to simulate the ardunino connection. It does this by running the arduino_test_Service every 2 mins using cron
 
 
 
