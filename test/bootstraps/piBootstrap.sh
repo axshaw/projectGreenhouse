@@ -6,22 +6,24 @@ echo "---------------------------------------"
 
 apt-get update
 apt-get -y install rabbitmq-server
-apt-get -y install mongodb-server
+#apt-get -y install mongodb-server
 apt-get -y install make
 echo "ulimit -n 1024" >> /etc/default/rabbitmq-server
-gem install bunny 
+sudo gem install bunny 
+sudo gem install rspec
+sudo gem install serialport
+
 
 apt-get -y install python-pip python-dev build-essential
 apt-get -y install socat
 
-sudo pip install pika
-sudo pip install mock #dev only really!
+#sudo pip install pika
+#sudo pip install mock #dev only really!
 sudo pip install nose #dev oly really!
 sudo pip install nose-cov
 sudo pip install pyserial
 
-sudo gem install rspec
-sudo gem install serialport
+
 echo "---------------------------------------"
 echo "Setup complete starting services"
 echo "---------------------------------------"

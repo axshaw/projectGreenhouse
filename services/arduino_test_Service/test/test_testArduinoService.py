@@ -3,12 +3,12 @@
 #import mock
 #import testArduinoService
 #
-import mock
+#import mock
 import unittest
 import serial
-import io
+#import io
 from services.arduino_test_Service import arduino_test_Service
-import threading
+#import threading
 
 
 baudrate=115200
